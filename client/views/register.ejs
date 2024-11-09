@@ -9,6 +9,13 @@
 </head>
 <body>
     <h1>Cadastro de Usuário</h1>
+
+    <% if (typeof errorMessage !== 'undefined') { %>
+        <div class="error-message">
+            <p><%= errorMessage %></p>
+        </div>
+    <% } %>
+
     <form action="/register" method="POST">
         <input type="text" name="nome" placeholder="Nome" required>
         <input type="email" name="email" placeholder="Email" required>

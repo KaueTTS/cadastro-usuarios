@@ -17,9 +17,9 @@
     <% } %>
 
     <form action="/register" method="POST">
-        <input type="text" name="nome" placeholder="Nome" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="senha" placeholder="Senha" required>
+        <input type="text" name="nome" placeholder="Nome" maxlength="100" required>
+        <input type="email" name="email" placeholder="Email" maxlength="100" required>
+        <input type="password" name="senha" placeholder="Senha" maxlength="100" required>
         <input type="date" name="data_nascimento" required>
         <button type="submit">Cadastrar</button>
     </form>

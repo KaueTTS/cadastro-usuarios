@@ -1,4 +1,3 @@
-// backend/index.js
 const express = require('express');
 const db = require('./db');
 const app = express();
@@ -23,9 +22,17 @@ app.post('/register', (req, res) => {
     db.query(query, [nome, email, senha, data_nascimento], (err, result) => {
         if (err) {
             console.error(err);
-            return res.send('Erro ao registrar o usuário.');
+
+            if (err.sqlMessage.includes('for key \'usuarios.email\'')) {
+                return res.render('register', { errorMessage: 'Esse e-mail já está cadastrado, tente outro.' });
+            } else if (err.sqlMessage.includes('for column \'data_nascimento\'')) {
+                return res.render('register', { errorMessage: 'A data de nascimento é inválida.' });
+            }
+
+            return res.render('register', { errorMessage: err.sqlMessage });
+        } else {
+            res.redirect(`/welcome?nome=${nome}`);
         }
-        res.redirect(`/welcome?nome=${nome}`);
     });
 });
 
